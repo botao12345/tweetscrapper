@@ -14,7 +14,7 @@ def cleantweets(text):
 
     return cleanTweet
 
-tweetCriteria = got.manager.TweetCriteria().setQuerySearch('Cozyco').setSince("2012-01-01").setUntil(
+tweetCriteria = got.manager.TweetCriteria().toUser('Cozyco').setSince("2012-01-01").setUntil(
     "2018-02-26").setMaxTweets(100000)
 tweet = got.manager.TweetManager.getTweets(tweetCriteria)
 

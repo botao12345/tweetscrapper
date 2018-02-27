@@ -30,3 +30,7 @@ class TweetCriteria:
 	def setTopTweets(self, topTweets):
  		self.topTweets = topTweets
  		return self
+
+	def toUser(self, toUser):
+		self.toUser = toUser
+		return self
