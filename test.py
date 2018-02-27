@@ -14,27 +14,37 @@ def cleantweets(text):
 
     return cleanTweet
 
-tweetCriteria = got.manager.TweetCriteria().toUser('Cozyco').setSince("2012-01-01").setUntil(
-    "2018-02-26").setMaxTweets(100000)
-tweet = got.manager.TweetManager.getTweets(tweetCriteria)
 
-count = 0
-with open('tweets.csv', 'w', encoding='utf-8') as f:
-    writer = csv.writer(f, delimiter=',', lineterminator='\n')
-    writer.writerow(['Time', 'User name', 'Raw Tweets', 'Clean Tweets'])
-    for i in tweet:
-        if i.username == 'CozyCo':
-            pass
-        else:
-            time = i.date
-            username = i.username
-            rawtweet = i.text
-            cleantweet = cleantweets(i.text)
+def gettweets(toUser, sinceDate, untilDate):
 
-            row = [time, username, rawtweet, cleantweet]
+    tweetCriteria = got.manager.TweetCriteria().toUser(toUser).setSince(sinceDate).setUntil(
+        untilDate).setMaxTweets(100000)
+    tweet = got.manager.TweetManager.getTweets(tweetCriteria)
 
-            writer.writerow(row)
-            count += 1
+    count = 0
+    with open('tweets.csv', 'w', encoding='utf-8') as f:
+        writer = csv.writer(f, delimiter=',', lineterminator='\n')
+        writer.writerow(['Time', 'User name', 'Raw Tweets', 'Clean Tweets'])
+        for i in tweet:
+            if i.username == 'CozyCo':
+                pass
+            else:
+                time = i.date
+                username = i.username
+                rawtweet = i.text
+                cleantweet = cleantweets(i.text)
+
+                row = [time, username, rawtweet, cleantweet]
+
+                writer.writerow(row)
+                count += 1
 
 
-print('Retrieved {} tweets'.format(count))
+    print('Retrieved {} tweets'.format(count))
+
+
+toUser = 'CozyCo'
+sinceDate = '2012-08-01'
+untilDate = '2018-02-27'
+
+gettweets(toUser, sinceDate, untilDate)
